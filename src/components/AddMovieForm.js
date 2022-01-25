@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 import axios from 'axios';
 
-const EditMovieForm = (props) => {
+const AddMovieForm = (props) => {
 	const { push } = useHistory();
 
 	const { setMovies } = props;
@@ -18,15 +18,15 @@ const EditMovieForm = (props) => {
 
     const { id } = useParams();
 
-    useEffect(() => {
-        axios.get(`http://localhost:9000/api/movies/${id}`)
-            .then(res=>{
-                setMovie(res.data);
-            })
-			.catch(err => {
-				console.error(err);
-			})
-	}, []);
+    // useEffect(() => {
+    //     axios.get(`http://localhost:9000/api/movies/${id}`)
+    //         .then(res=>{
+    //             setMovie(res.data);
+    //         })
+	// 		.catch(err => {
+	// 			console.error(err);
+	// 		})
+	// }, []);
 	
 	const handleChange = (e) => {
         setMovie({
@@ -37,17 +37,17 @@ const EditMovieForm = (props) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        axios.put(`http://localhost:9000/api/movies/${id}`, movie)
+        axios.post(`http://localhost:9000/api/movies/`, movie)
             .then(res=>{
                 setMovies(res.data);
-                push(`/movies/${id}`);
+                push(`/movies/`);
 			})
 			.catch(err=>{
 				console.log(err);
 			})
 	}
 
-	const handleCancel = e => {
+    const handleCancel = e => {
         e.preventDefault();
         push('/movies');
     }
@@ -93,4 +93,4 @@ const EditMovieForm = (props) => {
 	</div>);
 }
 
-export default EditMovieForm;
+export default AddMovieForm;
